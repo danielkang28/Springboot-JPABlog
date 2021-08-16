@@ -24,11 +24,11 @@ spring:
     hibernate:
       ddl-auto: create
       naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-      use-new-id-generator-mappings: false
-    show-sql: true
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl #엔티티를 만들때 변수명 그대로 피드에 넣어줌
+      use-new-id-generator-mappings: false  #jpa 기본 넘버링 전략 안따라감
+    show-sql: true                          #하단 Console 쪽에 sql실행을 보여줌
     properties:
-      hibernate.format_sql: true
+      hibernate.format_sql: true            #원래 한줄로 나오는것을 이쁘게 정렬시켜줌
 
   jackson:
     serialization:
