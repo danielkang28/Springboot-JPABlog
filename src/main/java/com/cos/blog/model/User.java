@@ -27,7 +27,7 @@ public class User {
     @Column(nullable = false, length = 50)
     private String email;
 
-    @ColumnDefault("user")
+    @ColumnDefault("'user'")
     private String role;    //Enum을 쓰는게 좋다. 도메인을 만들어 줄 수 있음. 도메인. Ex. 초등학교의 도메인은 1~6
     //admin, user, manager 등
 
