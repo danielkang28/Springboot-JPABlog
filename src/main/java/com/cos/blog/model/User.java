@@ -11,6 +11,7 @@ import javax.persistence.Id;
 
 import java.sql.Timestamp;
 
+// ORM == Java(or 다른언어)에 있는  Object -> 테이블로 매핑해줌
 @Entity //User Class를 통해서 읽어서 자동으로 My Sql에 테이블이 생성됨
 public class User {
 
