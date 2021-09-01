@@ -22,7 +22,7 @@ spring:
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl #엔티티를 만들때 변수명 그대로 피드에 넣어줌
       use-new-id-generator-mappings: false  #jpa 기본 넘버링 전략 안따라감
