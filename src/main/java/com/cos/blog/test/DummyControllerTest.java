@@ -8,11 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -22,6 +20,30 @@ public class DummyControllerTest {
 
     @Autowired      //DummyControllerTest가 메모리에 뜰때 같이 뜨게 해준다. 의존성 주입(DI)
     private UserRepository userRepository;
+
+    // save 함수는 id를 전달하지 않으면, insert를 해주고
+    // save 함수는 id를 전달하면, 해당 id 가 있으면 update 를 해주고,
+    // save 함수는 id를 전달하면, 해당 id 가 없으면 insert 를 한다
+    // email이랑 password를 받아야 한다
+
+    @Transactional  // 함수 종료시에 자동 commit 이 된다.
+    @PutMapping("/dummy/user/{id}")
+    public User updateUser(@PathVariable int id, @RequestBody User reqestUser) {    // User reqestUser 를 json 형태로 받을건데, 그러러면 @ReqestBody 라는 어노테이션이 필요
+        System.out.println("id : " + id);                                          // 내가 json 데이터를 요청하면, => java Object(Massage Converter의 Jackson 라이브러리 로 변경해서 받아줌
+        System.out.println("password: " + reqestUser.getPassword() );
+        System.out.println("email : " + reqestUser.getEmail() );
+
+        User user = userRepository.findById(id).orElseThrow(()-> {
+            return new IllegalArgumentException("수정에 실패하였습니다");
+        });
+        user.setPassword(reqestUser.getPassword());
+        user.setEmail(reqestUser.getEmail());
+
+//        userRepository.save(reqestUser);    //업데이트할때 save를 사용하면, 입력받은 username, email, password를 제외한 다른 값은 null이 됨
+
+        //더티체킹
+        return null;
+    }
 
     // http://localhost:8000/blog/dummy/user
     @GetMapping("dummy/users")
@@ -78,7 +100,7 @@ public class DummyControllerTest {
         System.out.println("email : " + user.getEmail());
 
         user.setRole(RoleType.USER);    //<- RoleType.java 에서 Enum으로 설정한 값만 넣을 수 있음.
-        userRepository.save(user);
+        userRepository.save(user);  // .save는  insert 때 사용
         return "회원가입이 완료되었습니다.";
     }
 }
