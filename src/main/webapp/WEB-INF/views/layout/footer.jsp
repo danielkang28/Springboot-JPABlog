@@ -1,9 +1,9 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <br/>
 <div class="jumbotron text-center" style="margin-bottom:0">
-    <p>솔이 사랑해</p>
-    <p>(❁´◡`❁)</p>
-    <p>뽀뽀쪽</p>
+    <p>Made by</p>
+    <p>Doo</p>
+    <p>-1-=1=23</p>
 </div>
 </body>
 </html>
